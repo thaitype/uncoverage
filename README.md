@@ -40,7 +40,7 @@ uncoverage coverage/coverage-final.json
 * Parses `coverage-final.json`
 * Finds all uncovered statements
 * Groups adjacent uncovered lines (with context lines before/after)
-* Prints the grouped code context with line numbers and `← uncovered` markers
+* the grouped code context with line numbers and `← uncovered` markers will be copied to your clipboard
 
 ## ⚙️ CLI Options
 

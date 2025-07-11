@@ -42,22 +42,43 @@ uncoverage coverage/coverage-final.json
 * Groups adjacent uncovered lines (with context lines before/after)
 * Prints the grouped code context with line numbers and `← uncovered` markers
 
-## 💡 Example output
+## ⚙️ CLI Options
 
-```text
-📄 File: src/user-service.ts
+| Flag       | Type    | Default | Description                                           |
+| ---------- | ------- | ------- | ----------------------------------------------------- |
+| `--before` | Number  | `1`     | Number of lines **before** uncovered lines to include |
+| `--after`  | Number  | `1`     | Number of lines **after** uncovered lines to include  |
+| `--output` | String  | –       | Write the output to a file (Markdown format)          |
+| `--print`  | Boolean | `false` | Print to stdout instead of copying to clipboard       |
 
---- 🧩 Group 1: Lines 42 - 45   41:   if (!user) throw new Error('Missing user');
-  42:   if (!user.email) return; ← uncovered
-  43:   await sendWelcomeEmail(user); ← uncovered
-  44:   user.notified = true; ← uncovered
-  45:   return user; ← uncovered
-  46: }
+
+### 🧪 Example
+
+```bash
+npx uncoverage coverage/coverage-final.json --before 2 --after 3 --print
 ```
 
-## 🔧 Configuration
+This will print Markdown-formatted uncovered code with **2 lines before and 3 lines after** each uncovered block.
 
-Context lines before/after each uncovered line are currently fixed at **±1 line** for simplicity. Future versions may allow custom context configuration.
+## 💡 Example output
+
+````md
+## ❗ Here are the files and code blocks that are not covered by tests
+
+### `src/utils/math.ts`
+
+#### 🧩 Lines 42 - 45
+
+```ts
+  40: const a = 1;
+  41: const b = 2;
+  42: if (!user.email) return; // ← uncovered
+  43: await sendWelcomeEmail(user); // ← uncovered
+  44: user.notified = true; // ← uncovered
+  45: return user; // ← uncovered
+  46: log(user);
+  47: return;
+````
 
 ## 🧠 Why?
 

@@ -1,13 +1,16 @@
 import * as path from 'path';
 import { readFile } from 'fs/promises';
+import { MARK_INFO, MARK_NODE } from './constant';
 
 export async function parseCoverageAndFormat(
   coverage: Record<string, any>,
-  rootFilePath?: string
+  rootFilePath?: string,
+  beforeLines: number = 1,
+  afterLines: number = 1
 ): Promise<string> {
   const result: string[] = [];
 
-  result.push('## ❗ Here are the files and code blocks that are not covered by tests\n');
+  result.push(`## ${MARK_INFO} Here are the files and code blocks that are not covered by tests\n`);
 
   for (const filePath in coverage) {
     const data = coverage[filePath];
@@ -42,7 +45,7 @@ export async function parseCoverageAndFormat(
     for (const group of groups) {
       const context = new Set<number>();
       for (const line of group) {
-        for (let d = -1; d <= 1; d++) {
+        for (let d = -beforeLines; d <= afterLines; d++) {
           const ctx = line + d;
           if (ctx >= 0 && ctx < lines.length) context.add(ctx);
         }
@@ -53,7 +56,7 @@ export async function parseCoverageAndFormat(
         ? `Line ${group[0] + 1}`
         : `Lines ${group[0] + 1} - ${group[group.length - 1] + 1}`;
 
-      result.push(`#### 🧩 ${label}\n`);
+      result.push(`#### ${MARK_NODE} ${label}\n`);
       result.push('```ts');
       for (const i of contextLines) {
         const lineText = lines[i];

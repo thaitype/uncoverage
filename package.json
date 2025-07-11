@@ -1,6 +1,6 @@
 {
   "name": "uncoverage",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "Extract uncovered lines from Istanbul coverage reports — with context — ready to paste into ChatGPT, Claude, or Gemini for debugging or test generation.",
   "main": "./dist/main.js",

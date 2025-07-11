@@ -1,8 +1,8 @@
 {
-  "name": "gleanup",
-  "version": "1.2.2",
+  "name": "uncoverage",
+  "version": "0.0.0",
   "type": "module",
-  "description": "Read your project files recursively and print them in a clean format for LLMs, reviews, or sharing.",
+  "description": "Extract uncovered lines from Istanbul coverage reports — with context — ready to paste into ChatGPT, Claude, or Gemini for debugging or test generation.",
   "main": "./dist/main.js",
   "module": "./dist/main.mjs",
   "types": "./dist/main.d.ts",
@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "gleanup": "bin.mjs"
+    "uncoverage": "bin.mjs"
   },
   "files": [
     "bin.mjs",
@@ -29,7 +29,7 @@
     "release": "npm run build && changeset publish",
     "lint": "tsc --noEmit",
     "test": "ava",
-    "local:run": " pnpm build && npx gleanup . --output xxx.md",
+    "local:run": " pnpm build && npx uncoverage . --output xxx.md",
     "upgrade-deps": "npx taze -r --interactive",
     "check-deps": "npx taze -r"
   },
@@ -49,13 +49,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thaitype/gleanup.git"
+    "url": "https://github.com/thaitype/uncoverage.git"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://github.com/thaitype/gleanup#readme",
+  "homepage": "https://github.com/thaitype/uncoverage#readme",
   "ava": {
     "extensions": [
       "ts"

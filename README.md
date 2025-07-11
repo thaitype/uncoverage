@@ -40,24 +40,45 @@ uncoverage coverage/coverage-final.json
 * Parses `coverage-final.json`
 * Finds all uncovered statements
 * Groups adjacent uncovered lines (with context lines before/after)
-* Prints the grouped code context with line numbers and `← uncovered` markers
+* the grouped code context with line numbers and `← uncovered` markers will be copied to your clipboard
+
+## ⚙️ CLI Options
+
+| Flag       | Type    | Default | Description                                           |
+| ---------- | ------- | ------- | ----------------------------------------------------- |
+| `--before` | Number  | `1`     | Number of lines **before** uncovered lines to include |
+| `--after`  | Number  | `1`     | Number of lines **after** uncovered lines to include  |
+| `--output` | String  | –       | Write the output to a file (Markdown format)          |
+| `--print`  | Boolean | `false` | Print to stdout instead of copying to clipboard       |
+
+
+### 🧪 Example
+
+```bash
+npx uncoverage coverage/coverage-final.json --before 2 --after 3 --print
+```
+
+This will print Markdown-formatted uncovered code with **2 lines before and 3 lines after** each uncovered block.
 
 ## 💡 Example output
 
-```text
-📄 File: src/user-service.ts
+````md
+## ❗ Here are the files and code blocks that are not covered by tests
 
---- 🧩 Group 1: Lines 42 - 45   41:   if (!user) throw new Error('Missing user');
-  42:   if (!user.email) return; ← uncovered
-  43:   await sendWelcomeEmail(user); ← uncovered
-  44:   user.notified = true; ← uncovered
-  45:   return user; ← uncovered
-  46: }
-```
+### `src/utils/math.ts`
 
-## 🔧 Configuration
+#### 🧩 Lines 42 - 45
 
-Context lines before/after each uncovered line are currently fixed at **±1 line** for simplicity. Future versions may allow custom context configuration.
+```ts
+  40: const a = 1;
+  41: const b = 2;
+  42: if (!user.email) return; // ← uncovered
+  43: await sendWelcomeEmail(user); // ← uncovered
+  44: user.notified = true; // ← uncovered
+  45: return user; // ← uncovered
+  46: log(user);
+  47: return;
+````
 
 ## 🧠 Why?
 

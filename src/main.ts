@@ -23,6 +23,16 @@ const argv = cli({
       type: String,
       description: 'Write output to file (Markdown)',
     },
+    before: {
+      type: Number,
+      description: 'Number of lines before uncovered line (default: 1)',
+      default: 1,
+    },
+    after: {
+      type: Number,
+      description: 'Number of lines after uncovered line (default: 1)',
+      default: 1,
+    },
   },
 });
 
@@ -39,7 +49,9 @@ async function main() {
   console.log(`${MARK_INFO} Reading coverage from:\n   ${coveragePath}`);
 
   const raw = await readFile(coveragePath, 'utf8');
-  const content = await parseCoverageAndFormat(JSON.parse(raw), coveragePath);
+  const content = await parseCoverageAndFormat(JSON.parse(raw), coveragePath, 
+  argv.flags.before,
+    argv.flags.after);
 
   if (argv.flags.output) {
     const outPath = path.resolve(argv.flags.output);
